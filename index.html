@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HBS — Burn Safety & First Aid</title>
+<meta name="description" content="Practical, plain-language guidance on burn prevention, first aid, and severity — plus a free interactive burn size calculator.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&display=swap');
+
+/* ---------- Tokens ---------- */
+:root{
+  --clay: #c05a24;
+  --clay-dark: #93401a;
+  --clay-light: #e8b088;
+  --olive: #74722f;
+  --olive-dark: #565426;
+  --brick: #8c2a1c;
+  --paper: #faf6ee;
+  --paper-raised: #ffffff;
+  --ink: #211a10;
+  --ink-soft: #6b6355;
+  --line: rgba(33,26,16,0.12);
+  --shadow: 0 18px 40px rgba(33,26,16,0.10);
+  --radius: 14px;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
+  --serif: 'Fraunces', serif;
+}
+html[data-theme="dark"]{
+  --paper: #17140f;
+  --paper-raised: #201c15;
+  --ink: #f3ece0;
+  --ink-soft: #b3a894;
+  --line: rgba(255,255,255,0.10);
+  --shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+  -webkit-font-smoothing:antialiased; transition:background .25s ease, color .25s ease;
+}
+a{color:inherit;}
+img{max-width:100%;display:block;}
+.container{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:blur(16px) saturate(160%); -webkit-backdrop-filter:blur(16px) saturate(160%);
+  background:color-mix(in srgb, var(--paper) 78%, transparent);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{max-width:1080px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between;}
+.brand{display:flex; align-items:center; gap:9px; font-family:var(--serif); font-weight:700; font-size:18px; text-decoration:none; color:var(--ink);}
+.brand-dot{width:9px; height:9px; border-radius:50%; background:var(--clay); flex:none;}
+.nav-links{display:flex; gap:28px; align-items:center;}
+.nav-links a{font-size:14.5px; font-weight:500; text-decoration:none; color:var(--ink-soft); transition:color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{background:var(--clay); color:#fff !important; padding:8px 16px; border-radius:20px; font-weight:600 !important;}
+.theme-toggle{width:44px; height:26px; border-radius:14px; border:1px solid var(--line); background:var(--paper-raised); position:relative; cursor:pointer; flex:none;}
+.theme-toggle .knob{position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:var(--clay); transition:transform .2s ease;}
+html[data-theme="dark"] .theme-toggle .knob{transform:translateX(18px); background:var(--olive);}
+.mobile-menu-btn{display:none; background:none; border:none; font-size:22px; color:var(--ink); cursor:pointer;}
+@media (max-width:760px){
+  .nav-links{
+    position:fixed; top:64px; left:0; right:0; background:var(--paper);
+    flex-direction:column; align-items:flex-start; padding:18px 24px 26px; gap:16px;
+    border-bottom:1px solid var(--line);
+    transform:translateY(-8px); opacity:0; pointer-events:none; transition:all .18s ease;
+  }
+  .nav-links.open{transform:translateY(0); opacity:1; pointer-events:auto;}
+  .mobile-menu-btn{display:block;}
+}
+
+/* ---------- Hero ---------- */
+.hero{padding:88px 0 64px; position:relative; overflow:hidden;}
+.hero::before{
+  content:''; position:absolute; top:-140px; right:-120px; width:420px; height:420px;
+  background:radial-gradient(circle, var(--clay-light) 0%, transparent 70%); opacity:0.35; pointer-events:none;
+}
+.eyebrow{font-size:13.5px; font-weight:600; color:var(--brick); letter-spacing:0.01em;}
+.hero h1{font-family:var(--serif); font-weight:900; font-size:clamp(36px,5.4vw,58px); line-height:1.05; margin:14px 0 20px; max-width:680px;}
+.hero p.lead{font-size:18px; color:var(--ink-soft); max-width:520px; line-height:1.6; margin-bottom:32px;}
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+.btn{display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:10px; font-weight:600; font-size:15px; text-decoration:none; border:1.5px solid transparent; cursor:pointer; transition:transform .12s ease, opacity .12s ease;}
+.btn:active{transform:scale(0.97);}
+.btn-primary{background:var(--clay); color:#fff;}
+.btn-primary:hover{opacity:0.92;}
+.btn-outline{background:transparent; border-color:var(--line); color:var(--ink);}
+.btn-outline:hover{border-color:var(--ink-soft);}
+
+/* ---------- Sections ---------- */
+section{padding:76px 0;}
+.section-head{max-width:600px; margin-bottom:44px;}
+.section-head .eyebrow{display:block; margin-bottom:10px;}
+.section-head h2{font-family:var(--serif); font-weight:700; font-size:clamp(28px,3.6vw,38px); margin:0 0 12px; line-height:1.15;}
+.section-head p{color:var(--ink-soft); font-size:16px; line-height:1.6; margin:0;}
+.alt-bg{background:var(--paper-raised); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+
+/* ---------- Cards ---------- */
+.grid{display:grid; gap:20px;}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+@media (max-width:760px){.grid-3{grid-template-columns:1fr;}}
+.card{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:26px; box-shadow:var(--shadow);}
+.card .tag{display:inline-block; font-size:12px; font-weight:700; color:#fff; background:var(--olive); padding:4px 10px; border-radius:5px; margin-bottom:14px;}
+.card h3{font-family:var(--serif); font-size:20px; margin:0 0 8px;}
+.card p{color:var(--ink-soft); font-size:14.5px; line-height:1.6; margin:0;}
+
+/* ---------- First aid list ---------- */
+.aid-cols{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+@media (max-width:760px){.aid-cols{grid-template-columns:1fr;}}
+.aid-block{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:26px;}
+.aid-block h3{font-family:var(--serif); font-size:19px; margin:0 0 16px;}
+.aid-block.dont h3{color:var(--brick);}
+.aid-block.do h3{color:var(--olive-dark);}
+.aid-block ul{margin:0; padding:0; list-style:none;}
+.aid-block li{padding:10px 0; border-bottom:1px solid var(--line); font-size:14.5px; line-height:1.5; display:flex; gap:10px;}
+.aid-block li:last-child{border-bottom:none;}
+.mark{flex:none; font-weight:700;}
+.aid-block.do .mark{color:var(--olive-dark);}
+.aid-block.dont .mark{color:var(--brick);}
+
+/* ---------- macOS window mockup ---------- */
+.mac-window{border-radius:12px; overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow); background:var(--paper-raised);}
+.mac-bar{display:flex; align-items:center; gap:14px; padding:11px 16px; background:var(--paper); border-bottom:1px solid var(--line);}
+.mac-dots{display:flex; gap:7px;}
+.mac-dots span{width:11px; height:11px; border-radius:50%; display:block;}
+.mac-dots .r{background:#ec6a5e;} .mac-dots .y{background:#f4bf4f;} .mac-dots .g{background:#61c554;}
+.mac-address{flex:1; background:var(--paper-raised); border:1px solid var(--line); border-radius:6px; padding:5px 12px; font-size:12.5px; color:var(--ink-soft); text-align:center;}
+.mac-body{background:var(--paper); padding:28px;}
+
+/* ---------- Calculator (inline) ---------- */
+.toggle-row{display:flex; gap:10px; margin-bottom:22px;}
+.toggle-row button{flex:1; padding:10px 12px; border-radius:8px; border:1.5px solid var(--olive); background:transparent; color:var(--olive-dark); font-family:var(--sans); font-weight:700; font-size:14px; cursor:pointer; transition:background .15s, color .15s;}
+.toggle-row button.active{background:var(--olive); color:#fff;}
+.body-wrap{display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start;}
+.diagram{flex:1 1 260px; min-width:220px; text-align:center;}
+.diagram svg{width:100%; max-width:260px; height:auto;}
+.zone{fill:color-mix(in srgb, var(--olive) 12%, var(--paper-raised)); stroke:var(--ink); stroke-width:1.4; cursor:pointer; transition:fill .12s;}
+.zone:hover{fill:color-mix(in srgb, var(--olive) 25%, var(--paper-raised));}
+.zone.selected{fill:var(--clay);}
+.zone-label{font-size:9px; fill:var(--ink); pointer-events:none; font-family:var(--sans);}
+.readout{flex:1 1 240px; min-width:220px;}
+.pct-big{font-family:var(--serif); font-weight:900; font-size:60px; color:var(--brick); line-height:1; margin-bottom:2px;}
+.pct-label{font-size:13px; color:var(--ink-soft); margin-bottom:18px;}
+.severity{display:inline-block; padding:6px 14px; border-radius:20px; font-weight:700; font-size:13px; margin-bottom:18px; color:#fff;}
+.sev-none{background:#8a8a6a;} .sev-minor{background:var(--olive-dark);}
+.sev-moderate{background:var(--clay-dark);} .sev-major{background:var(--brick);}
+select.depth{width:100%; padding:11px 12px; border-radius:8px; border:1.5px solid var(--line); font-family:var(--sans); font-size:14px; color:var(--ink); background:var(--paper-raised); margin-bottom:6px;}
+.depth-note{font-size:12.5px; color:var(--ink-soft); line-height:1.4;}
+.clear-btn{margin-top:16px; background:none; border:none; color:var(--brick); font-weight:700; font-size:13px; cursor:pointer; text-decoration:underline; padding:0;}
+.guidance-list{margin:0; padding-left:0; list-style:none;}
+.guidance-list li{display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); font-size:14.5px; line-height:1.5;}
+.guidance-list li:last-child{border-bottom:none;}
+.num{font-family:var(--serif); font-weight:700; color:var(--clay-dark); font-size:18px; flex:0 0 26px;}
+.calc-block{margin-bottom:24px;}
+.calc-block:last-child{margin-bottom:0;}
+.calc-block h4{font-family:var(--serif); margin:0 0 4px; font-size:18px;}
+.calc-block .sub{color:var(--ink-soft); font-size:14px; margin:0 0 18px;}
+
+/* ---------- Alert ---------- */
+.alert{background:color-mix(in srgb, var(--brick) 9%, var(--paper-raised)); border-left:4px solid var(--brick); border-radius:8px; padding:22px 24px;}
+.alert h3{font-family:var(--serif); color:var(--brick); margin:0 0 10px; font-size:19px;}
+.alert ul{margin:0; padding-left:20px; font-size:14.5px; line-height:1.7; color:var(--ink);}
+
+/* ---------- Contact ---------- */
+.contact-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+@media (max-width:760px){.contact-grid{grid-template-columns:1fr;}}
+.contact-card{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:26px; text-align:center; text-decoration:none; color:var(--ink); transition:border-color .15s, transform .12s;}
+.contact-card:hover{border-color:var(--clay); transform:translateY(-2px);}
+.contact-card .icon{width:44px; height:44px; border-radius:50%; background:var(--clay); color:#fff; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:18px;}
+.contact-card h4{margin:0 0 6px; font-size:16px; font-family:var(--serif);}
+.contact-card p{margin:0; color:var(--ink-soft); font-size:14px; word-break:break-word;}
+
+/* ---------- Footer ---------- */
+footer{padding:44px 0 30px; border-top:1px solid var(--line);}
+.footer-inner{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+.footer-inner .brand{margin-bottom:0;}
+.footer-links{display:flex; gap:22px;}
+.footer-links a{font-size:13.5px; color:var(--ink-soft); text-decoration:none;}
+.footer-note{font-size:12.5px; color:var(--ink-soft); margin-top:20px;}
+</style>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+<style>
+/* ---- Burn Map section (scoped under .bm) ---- */
+.bm .tabs{display:flex;gap:6px;margin:26px 0 0;border-bottom:1px solid var(--line);}
+.bm .tab-btn{border:none;background:none;font:inherit;font-size:14.5px;font-weight:600;color:var(--ink-soft);padding:11px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.bm .tab-btn:hover{color:var(--ink);}
+.bm .tab-btn.active{color:var(--clay-dark);border-bottom-color:var(--clay);}
+.bm .panel{display:none;padding:28px 0 64px;}
+.bm .panel.active{display:block;}
+
+/* ---- Map layout ---- */
+.bm .map-layout{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:start;}
+@media (max-width:820px){.bm .map-layout{grid-template-columns:1fr;}}
+.bm .side{background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
+.bm .side h3{margin:0 0 10px;font-size:12.5px;text-transform:none;letter-spacing:.02em;color:var(--ink-soft);font-weight:600;}
+.bm .side .group{margin-bottom:18px;}
+.bm .side .group:last-child{margin-bottom:0;}
+.bm label.opt{display:flex;align-items:center;gap:9px;font-size:14px;padding:5px 0;cursor:pointer;}
+.bm label.opt input{accent-color:var(--clay);width:15px;height:15px;flex:none;}
+.bm .swatch{width:11px;height:11px;border-radius:3px;flex:none;}
+#map{height:560px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);}
+.bm .map-toolbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px;}
+.bm .btn-ghost{background:var(--paper-raised);border:1px solid var(--line);border-radius:20px;padding:7px 14px;font-size:13.5px;font-weight:600;cursor:pointer;color:var(--ink);}
+.bm .btn-ghost.on{background:var(--clay);color:#fff;border-color:var(--clay);}
+.bm .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--ink-soft);}
+.bm .legend span{display:inline-flex;align-items:center;gap:6px;}
+.bm .legend i{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.maplibregl-popup-content{font-family:var(--sans);border-radius:10px;box-shadow:var(--shadow);}
+.pop h4{margin:0 0 4px;font-family:var(--serif);font-size:15px;}
+.pop p{margin:2px 0;font-size:12.5px;color:var(--ink-soft);}
+
+/* ---- Analytics ---- */
+.bm .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+@media (max-width:720px){.bm .stat-grid{grid-template-columns:repeat(2,1fr);}}
+.bm .stat-card{background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+.bm .stat-card .num{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--clay-dark);}
+.bm .stat-card .lbl{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+.bm .chart-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;}
+@media (max-width:820px){.bm .chart-grid{grid-template-columns:1fr;}}
+.bm .card{background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);}
+.bm .card h3{margin:0 0 14px;font-family:var(--serif);font-size:16px;}
+.bm .bar-row{display:grid;grid-template-columns:110px 1fr 34px;align-items:center;gap:10px;margin-bottom:9px;font-size:13.5px;}
+.bm .bar-track{background:var(--line);border-radius:6px;height:10px;overflow:hidden;}
+.bm .bar-fill{height:100%;background:var(--clay);border-radius:6px;}
+.bm .donut-wrap{display:flex;align-items:center;gap:20px;}
+.bm .donut{width:130px;height:130px;border-radius:50%;flex:none;}
+.bm .donut-key{font-size:13px;line-height:1.8;color:var(--ink-soft);}
+.bm .donut-key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;}
+
+/* ---- Report ---- */
+.bm .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:640px;}
+@media (max-width:600px){.bm .form-grid{grid-template-columns:1fr;}}
+.bm .field{display:flex;flex-direction:column;gap:5px;}
+.bm .field.full{grid-column:1/-1;}
+.bm .field label{font-size:12.5px;font-weight:600;color:var(--ink-soft);}
+.bm .field input, .bm .field select, .bm .field textarea{font:inherit;font-size:14px;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);}
+.bm .field textarea{resize:vertical;min-height:70px;}
+.bm .submit-row{display:flex;align-items:center;gap:12px;margin-top:6px;}
+.bm .btn-primary{background:var(--clay);color:#fff;border:none;border-radius:20px;padding:10px 20px;font-weight:600;font-size:14px;cursor:pointer;}
+.bm .btn-primary:hover{background:var(--clay-dark);}
+.bm .pick-hint{font-size:12.5px;color:var(--ink-soft);}
+.bm table.reports{width:100%;border-collapse:collapse;margin-top:22px;font-size:13.5px;}
+.bm table.reports th, .bm table.reports td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);}
+.bm table.reports th{color:var(--ink-soft);font-weight:600;font-size:12px;}
+.bm .empty-note{color:var(--ink-soft);font-size:13.5px;margin-top:16px;}
+
+/* ---- About ---- */
+.bm .about p{line-height:1.7;color:var(--ink-soft);max-width:680px;font-size:15px;}
+.bm .about h3{font-family:var(--serif);font-size:18px;margin:26px 0 8px;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand"><span class="brand-dot"></span>HBS</a>
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">☰</button>
+    <div class="nav-links" id="nav-links">
+      <a href="#basics">Burn Basics</a>
+      <a href="#first-aid">First Aid</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#burn-map">Burn Map</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><span class="knob"></span></button>
+      <a href="tel:+923291189909" class="nav-cta">Get Help</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">BURN SAFETY & RECOVERY</span>
+    <h1>The first few minutes after a burn matter more than people realize.</h1>
+    <p class="lead">Clear, practical guidance on preventing burns, treating them correctly, and knowing when to get help — written so anyone can use it in the moment it counts.</p>
+    <div class="hero-actions">
+      <a href="#calculator" class="btn btn-primary">Try the burn calculator</a>
+      <a href="https://www.instagram.com/healing.beyondscars/" target="_blank" rel="noopener" class="btn btn-outline">Follow on Instagram</a>
+    </div>
+  </div>
+</header>
+
+<section id="basics">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">UNDERSTANDING BURNS</span>
+      <h2>Not every burn is the same — and that changes what you should do.</h2>
+      <p>Severity depends on depth as much as size. Here's the quick version of what doctors look for.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="tag">First degree</span>
+        <h3>Superficial</h3>
+        <p>Red, dry, and painful — like a sunburn. Affects only the outer layer of skin and usually heals within about a week without scarring.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Second degree</span>
+        <h3>Partial thickness</h3>
+        <p>Blistered, wet, and very painful. Reaches deeper into the skin. Blisters should be left intact — popping them raises infection risk.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Third degree</span>
+        <h3>Full thickness</h3>
+        <p>White, leathery, or charred skin that may feel numb rather than painful, because nerve endings are damaged. Always needs medical care.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="first-aid" class="alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FIRST AID ESSENTIALS</span>
+      <h2>What to do in the first few minutes</h2>
+      <p>Simple actions, done correctly, make the biggest difference before any professional help arrives.</p>
+    </div>
+    <div class="aid-cols">
+      <div class="aid-block do">
+        <h3>Do</h3>
+        <ul>
+          <li><span class="mark">✓</span> Cool the burn under cool, running water for 15–20 minutes.</li>
+          <li><span class="mark">✓</span> Remove rings, watches, or tight clothing near the area before swelling starts.</li>
+          <li><span class="mark">✓</span> Cover loosely with a clean, dry, non-stick dressing.</li>
+          <li><span class="mark">✓</span> Watch for signs of infection over the next 48 hours — increasing redness, pus, or fever.</li>
+          <li><span class="mark">✓</span> Seek care immediately for burns on the face, hands, feet, groin, or major joints.</li>
+        </ul>
+      </div>
+      <div class="aid-block dont">
+        <h3>Don't</h3>
+        <ul>
+          <li><span class="mark">✕</span> Don't use ice — it can damage the tissue further.</li>
+          <li><span class="mark">✕</span> Don't apply butter, oil, toothpaste, or other home remedies.</li>
+          <li><span class="mark">✕</span> Don't pop blisters — they protect the healing skin underneath.</li>
+          <li><span class="mark">✕</span> Don't pull off clothing that's stuck to the burn.</li>
+          <li><span class="mark">✕</span> Don't wait and see with a large, deep, or chemical/electrical burn — call for help.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calculator">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FREE TOOL</span>
+      <h2>Estimate the size of a burn</h2>
+      <p>Uses the Rule of Nines — the same method first responders use — to give a quick estimate of how much of the body is affected and what to do next.</p>
+    </div>
+
+    <div class="mac-window">
+      <div class="mac-bar">
+        <div class="mac-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="mac-address">hbs.site/calculator</div>
+      </div>
+      <div class="mac-body">
+
+        <div class="calc-block">
+          <h4>1. Mark the burned areas</h4>
+          <p class="sub">Tap each region that's affected. Switch views to mark the back too.</p>
+          <div class="toggle-row">
+            <button id="btn-front" class="active">Front</button>
+            <button id="btn-back">Back</button>
+          </div>
+          <div class="body-wrap">
+            <div class="diagram">
+              <svg id="svg-front" viewBox="0 0 200 380">
+                <circle class="zone" data-part="head" data-pct="4.5" cx="100" cy="34" r="26"></circle>
+                <rect class="zone" data-part="r_arm" data-pct="4.5" x="30" y="70" width="26" height="120" rx="10"></rect>
+                <rect class="zone" data-part="l_arm" data-pct="4.5" x="144" y="70" width="26" height="120" rx="10"></rect>
+                <rect class="zone" data-part="torso_f" data-pct="18" x="66" y="66" width="68" height="130" rx="8"></rect>
+                <rect class="zone" data-part="groin" data-pct="1" x="88" y="196" width="24" height="14" rx="3"></rect>
+                <rect class="zone" data-part="r_leg_f" data-pct="9" x="66" y="212" width="30" height="150" rx="10"></rect>
+                <rect class="zone" data-part="l_leg_f" data-pct="9" x="104" y="212" width="30" height="150" rx="10"></rect>
+                <text class="zone-label" x="100" y="38" text-anchor="middle">head 4.5%</text>
+                <text class="zone-label" x="43" y="134" text-anchor="middle">arm 4.5%</text>
+                <text class="zone-label" x="157" y="134" text-anchor="middle">arm 4.5%</text>
+                <text class="zone-label" x="100" y="134" text-anchor="middle">trunk 18%</text>
+                <text class="zone-label" x="81" y="290" text-anchor="middle">leg 9%</text>
+                <text class="zone-label" x="119" y="290" text-anchor="middle">leg 9%</text>
+              </svg>
+              <svg id="svg-back" viewBox="0 0 200 380" style="display:none;">
+                <circle class="zone" data-part="head_b" data-pct="4.5" cx="100" cy="34" r="26"></circle>
+                <rect class="zone" data-part="r_arm_b" data-pct="4.5" x="30" y="70" width="26" height="120" rx="10"></rect>
+                <rect class="zone" data-part="l_arm_b" data-pct="4.5" x="144" y="70" width="26" height="120" rx="10"></rect>
+                <rect class="zone" data-part="torso_b" data-pct="18" x="66" y="66" width="68" height="130" rx="8"></rect>
+                <rect class="zone" data-part="r_leg_b" data-pct="9" x="66" y="212" width="30" height="150" rx="10"></rect>
+                <rect class="zone" data-part="l_leg_b" data-pct="9" x="104" y="212" width="30" height="150" rx="10"></rect>
+                <text class="zone-label" x="100" y="38" text-anchor="middle">head 4.5%</text>
+                <text class="zone-label" x="43" y="134" text-anchor="middle">arm 4.5%</text>
+                <text class="zone-label" x="157" y="134" text-anchor="middle">arm 4.5%</text>
+                <text class="zone-label" x="100" y="134" text-anchor="middle">back 18%</text>
+                <text class="zone-label" x="81" y="290" text-anchor="middle">leg 9%</text>
+                <text class="zone-label" x="119" y="290" text-anchor="middle">leg 9%</text>
+              </svg>
+            </div>
+            <div class="readout">
+              <div class="pct-big" id="pct-total">0%</div>
+              <div class="pct-label">of total body surface area (adult estimate)</div>
+              <div class="severity sev-none" id="severity-badge">No area selected</div>
+              <div><button class="clear-btn" id="clear-btn">Clear selection</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-block">
+          <h4>2. How deep is it?</h4>
+          <p class="sub">Depth changes urgency more than size does.</p>
+          <select class="depth" id="depth-select">
+            <option value="superficial">Superficial — red, dry, painful, no blisters (like sunburn)</option>
+            <option value="partial">Partial thickness — blistered, wet, very painful</option>
+            <option value="full">Full thickness — white/leathery/charred, may feel numb</option>
+          </select>
+          <div class="depth-note" id="depth-note"></div>
+        </div>
+
+        <div class="calc-block">
+          <h4>3. What to do now</h4>
+          <ol class="guidance-list" id="guidance-list"></ol>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="alt-bg">
+  <div class="container">
+    <div class="alert">
+      <h3>Always get emergency care for:</h3>
+      <ul>
+        <li>Burns on the face, hands, feet, groin, or major joints</li>
+        <li>Any full-thickness (white, charred, or numb) burn, regardless of size</li>
+        <li>Burns from chemicals, electricity, or an explosion</li>
+        <li>Any burn on an infant, young child, or older adult</li>
+        <li>Signs of shock, smoke inhalation, or difficulty breathing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="burn-map" class="alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">LIVE DATA (SAMPLE)</span>
+      <h2>Where burn care is — and isn't — accessible</h2>
+      <p>An interactive map of burn incidents and how far people are from specialized burn centres across Pakistan. The incident points below are illustrative sample data, not a live feed — see the About tab for details.</p>
+    </div>
+    <div class="bm">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="map">Map</button>
+    <button class="tab-btn" data-tab="analytics">Analytics</button>
+    <button class="tab-btn" data-tab="report">Report</button>
+    <button class="tab-btn" data-tab="about">About</button>
+  </div>
+
+  <!-- MAP -->
+  <div class="panel active" id="panel-map">
+    <div class="map-layout">
+      <div class="side">
+        <div class="group">
+          <h3>Map layers</h3>
+          <label class="opt"><input type="checkbox" id="ly-incidents" checked><span class="swatch" style="background:var(--brick)"></span>Burn incidents</label>
+          <label class="opt"><input type="checkbox" id="ly-hospitals" checked><span class="swatch" style="background:var(--olive)"></span>Burn hospitals</label>
+          <label class="opt"><input type="checkbox" id="ly-radii" checked><span class="swatch" style="background:var(--clay-light)"></span>Coverage radii</label>
+          <label class="opt"><input type="checkbox" id="ly-zones" checked><span class="swatch" style="background:#7a8fae"></span>Accessibility zones</label>
+        </div>
+        <div class="group">
+          <h3>Heatmap</h3>
+          <label class="opt"><input type="radio" name="heat" value="off" checked>Off</label>
+          <label class="opt"><input type="radio" name="heat" value="density">Incidence density</label>
+          <label class="opt"><input type="radio" name="heat" value="pediatric">Pediatric burns</label>
+          <label class="opt"><input type="radio" name="heat" value="electrical">Electrical burns</label>
+          <label class="opt"><input type="radio" name="heat" value="female">Female victims</label>
+          <label class="opt"><input type="radio" name="heat" value="mortality">High mortality</label>
+          <label class="opt"><input type="radio" name="heat" value="access">Access gaps</label>
+        </div>
+        <div class="group">
+          <h3>Access zone (accessibility mode)</h3>
+          <label class="opt"><input type="radio" name="zone" value="all" checked>All</label>
+          <label class="opt"><input type="radio" name="zone" value="n25">&lt; 25 km</label>
+          <label class="opt"><input type="radio" name="zone" value="n50">25–50 km</label>
+          <label class="opt"><input type="radio" name="zone" value="n100">50–100 km</label>
+          <label class="opt"><input type="radio" name="zone" value="n999">&gt; 100 km</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="map-toolbar">
+          <button class="btn-ghost on" id="btn-3d">3D tilt</button>
+          <button class="btn-ghost" id="btn-reset">Reset view</button>
+        </div>
+        <div id="map-error" style="display:none;margin-bottom:8px;padding:10px 14px;border-radius:9px;background:#f6d9d0;color:var(--brick);font-size:13.5px;"></div>
+        <div id="map"></div>
+        <div class="legend">
+          <span><i style="background:#e0b400"></i>Minor</span>
+          <span><i style="background:var(--clay)"></i>Moderate</span>
+          <span><i style="background:var(--brick)"></i>Major</span>
+          <span><i style="background:#5a1610"></i>Critical</span>
+          <span><i style="background:var(--olive)"></i>Burn hospital</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYTICS -->
+  <div class="panel" id="panel-analytics">
+    <div class="stat-grid" id="stat-grid"></div>
+    <div class="chart-grid">
+      <div class="card">
+        <h3>Incidents by province (sample)</h3>
+        <div id="bar-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Victim profile (sample)</h3>
+        <div class="donut-wrap">
+          <div class="donut" id="donut"></div>
+          <div class="donut-key" id="donut-key"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT -->
+  <div class="panel" id="panel-report">
+    <div class="card" style="max-width:700px;">
+      <h3>Report a burn incident</h3>
+      <p class="pick-hint" style="margin-top:-6px;">Fields marked with a location can be filled by clicking <strong>Pick on map</strong>, then clicking a spot on the Map tab.</p>
+      <form id="report-form" class="form-grid">
+        <div class="field"><label>City / area</label><input type="text" id="f-city" placeholder="e.g. Multan" required></div>
+        <div class="field"><label>Province</label>
+          <select id="f-province">
+            <option>Punjab</option><option>Sindh</option><option>Khyber Pakhtunkhwa</option>
+            <option>Balochistan</option><option>Gilgit-Baltistan</option><option>Azad Kashmir</option><option>Islamabad</option>
+          </select>
+        </div>
+        <div class="field"><label>Age group</label>
+          <select id="f-age"><option value="pediatric">Pediatric (under 12)</option><option value="adult">Adult</option></select>
+        </div>
+        <div class="field"><label>Gender</label>
+          <select id="f-gender"><option value="female">Female</option><option value="male">Male</option></select>
+        </div>
+        <div class="field"><label>Cause</label>
+          <select id="f-cause"><option value="scald">Scald</option><option value="flame">Flame</option><option value="electrical">Electrical</option><option value="chemical">Chemical</option></select>
+        </div>
+        <div class="field"><label>Severity</label>
+          <select id="f-severity"><option value="minor">Minor</option><option value="moderate">Moderate</option><option value="major">Major</option><option value="critical">Critical</option></select>
+        </div>
+        <div class="field full"><label>Notes (optional)</label><textarea id="f-notes" placeholder="Any additional detail..."></textarea></div>
+        <div class="field full submit-row">
+          <button type="button" class="btn-ghost" id="btn-pick">Pick on map</button>
+          <span class="pick-hint" id="pick-status">No location picked yet.</span>
+        </div>
+        <div class="field full submit-row">
+          <button type="submit" class="btn-primary">Submit report</button>
+        </div>
+      </form>
+      <table class="reports" id="reports-table" style="display:none;">
+        <thead><tr><th>City</th><th>Province</th><th>Severity</th><th>Cause</th><th>When</th></tr></thead>
+        <tbody id="reports-body"></tbody>
+      </table>
+      <p class="empty-note" id="reports-empty">No reports submitted on this device yet.</p>
+      <p class="empty-note">Reports are stored only in this browser for now — nothing is sent to a server. To make this shared and permanent, this form needs to be wired up to a small backend (e.g. a Cloudflare Worker + D1 database).</p>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="panel about" id="panel-about">
+    <h3 style="margin-top:0;">What this is</h3>
+    <p>This page maps burn incidents across Pakistan alongside the country's specialized burn treatment centers, so you can see where care is close by and where access gaps exist.</p>
+    <h3>Data in this version</h3>
+    <p>The incident points plotted here are illustrative sample data, not a live feed of real cases — building a genuine live version needs a real incident-reporting pipeline and hospital dataset behind it. The burn-center locations are approximate positions of well-known major facilities and should be verified before being relied on for anything operational.</p>
+    <h3>Methodology</h3>
+    <p>Access distance is calculated as straight-line (haversine) distance from each incident to the nearest listed burn center, grouped into four bands: under 25 km, 25–50 km, 50–100 km, and over 100 km. Real road-network travel time would be more accurate than straight-line distance.</p>
+  </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">NEED HELP OR HAVE QUESTIONS</span>
+      <h2>Reach out — we respond directly</h2>
+      <p>Whether it's an urgent question or you just want to learn more, here's how to reach HBS.</p>
+    </div>
+    <div class="contact-grid">
+      <a href="tel:+923291189909" class="contact-card">
+        <div class="icon">☎</div>
+        <h4>Call or WhatsApp</h4>
+        <p>+92 329 1189909</p>
+      </a>
+      <a href="mailto:ajaraleem16@gmail.com" class="contact-card">
+        <div class="icon">✉</div>
+        <h4>Email</h4>
+        <p>ajaraleem16@gmail.com</p>
+      </a>
+      <a href="https://www.instagram.com/healing.beyondscars/" target="_blank" rel="noopener" class="contact-card">
+        <div class="icon">◎</div>
+        <h4>Instagram</h4>
+        <p>@healing.beyondscars</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#" class="brand"><span class="brand-dot"></span>HBS</a>
+      <div class="footer-links">
+        <a href="#basics">Burn Basics</a>
+        <a href="#first-aid">First Aid</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#burn-map">Burn Map</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <p class="footer-note">This site provides general safety information only and is not a substitute for professional medical advice. In an emergency, call your local emergency number immediately.</p>
+  </div>
+</footer>
+
+<script>
+  /* Theme toggle */
+  (function(){
+    const root = document.documentElement;
+    const saved = localStorage.getItem('hbs-theme');
+    if(saved === 'dark') root.setAttribute('data-theme','dark');
+
+    const toggle = document.getElementById('theme-toggle');
+    if(toggle){
+      toggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        if(isDark){ root.removeAttribute('data-theme'); localStorage.setItem('hbs-theme','light'); }
+        else { root.setAttribute('data-theme','dark'); localStorage.setItem('hbs-theme','dark'); }
+      });
+    }
+
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    if(menuBtn && navLinks){
+      menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+      navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    }
+  })();
+
+  /* Burn calculator */
+  const selected = new Set();
+  const svgFront = document.getElementById('svg-front');
+  const svgBack = document.getElementById('svg-back');
+  const btnFront = document.getElementById('btn-front');
+  const btnBack = document.getElementById('btn-back');
+  const pctTotal = document.getElementById('pct-total');
+  const badge = document.getElementById('severity-badge');
+  const depthSelect = document.getElementById('depth-select');
+  const depthNote = document.getElementById('depth-note');
+  const guidanceList = document.getElementById('guidance-list');
+
+  function bindZones(svg){
+    svg.querySelectorAll('.zone').forEach(z => {
+      z.addEventListener('click', () => {
+        const part = z.dataset.part;
+        if(selected.has(part)){ selected.delete(part); z.classList.remove('selected'); }
+        else { selected.add(part); z.classList.add('selected'); }
+        update();
+      });
+    });
+  }
+  bindZones(svgFront);
+  bindZones(svgBack);
+
+  btnFront.addEventListener('click', () => {
+    svgFront.style.display = 'block'; svgBack.style.display = 'none';
+    btnFront.classList.add('active'); btnBack.classList.remove('active');
+  });
+  btnBack.addEventListener('click', () => {
+    svgBack.style.display = 'block'; svgFront.style.display = 'none';
+    btnBack.classList.add('active'); btnFront.classList.remove('active');
+  });
+
+  document.getElementById('clear-btn').addEventListener('click', () => {
+    selected.clear();
+    document.querySelectorAll('.zone').forEach(z => z.classList.remove('selected'));
+    update();
+  });
+
+  function totalPct(){
+    let sum = 0;
+    document.querySelectorAll('.zone').forEach(z => {
+      if(selected.has(z.dataset.part)) sum += parseFloat(z.dataset.pct);
+    });
+    return Math.min(sum, 100);
+  }
+
+  function update(){
+    const t = totalPct();
+    pctTotal.textContent = (Math.round(t*10)/10) + '%';
+    badge.classList.remove('sev-none','sev-minor','sev-moderate','sev-major');
+    if(t === 0){ badge.textContent = 'No area selected'; badge.classList.add('sev-none'); }
+    else if(t < 10){ badge.textContent = 'Minor — small area'; badge.classList.add('sev-minor'); }
+    else if(t < 20){ badge.textContent = 'Moderate — worth medical review'; badge.classList.add('sev-moderate'); }
+    else { badge.textContent = 'Major — seek emergency care now'; badge.classList.add('sev-major'); }
+    updateGuidance();
+  }
+
+  const depthNotes = {
+    superficial: 'Usually heals on its own in about a week. Still worth cooling and protecting.',
+    partial: 'Blisters mean the burn reaches deeper skin layers. Don\u2019t pop them — infection risk rises fast.',
+    full: 'The nerve endings may be damaged, which is why it can feel numb rather than painful. This always needs professional care.'
+  };
+
+  function updateGuidance(){
+    const depth = depthSelect.value;
+    depthNote.textContent = depthNotes[depth];
+    const t = totalPct();
+    let steps = [];
+    if(depth === 'full' || t >= 20){
+      steps = [
+        'Call for emergency help right away — this is not a first-aid-only situation.',
+        'Do not remove clothing stuck to the burn, and do not apply ice, butter, or ointments.',
+        'Cover loosely with a clean, dry cloth while waiting for help.',
+        'Watch for shock: pale skin, rapid breathing, confusion. Keep the person warm and lying down if possible.'
+      ];
+    } else {
+      steps = [
+        'Cool the burn under cool (not ice-cold) running water for 15–20 minutes.',
+        'Remove nearby rings, watches, or tight clothing before swelling starts.',
+        depth === 'partial' ? 'Leave blisters intact and cover loosely with a clean, non-stick dressing.' : 'Cover with a clean, dry, non-stick dressing once cooled.',
+        'Take an over-the-counter pain reliever if needed, and watch for increasing redness, pus, or fever over the next 2 days — signs of infection.'
+      ];
+    }
+    guidanceList.innerHTML = steps.map((s,i) => `<li><span class="num">${i+1}</span><span>${s}</span></li>`).join('');
+  }
+
+  depthSelect.addEventListener('change', updateGuidance);
+  update();
+</script>
+
+<script>
+(function(){
+
+/* ---------------- Tabs ---------------- */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+    if(btn.dataset.tab==='map') setTimeout(()=>map.resize(),50);
+  });
+});
+
+/* ---------------- Sample data ---------------- */
+const hospitals = [
+  {name:"JPMC Burn Centre", city:"Karachi", province:"Sindh", lat:24.8621, lng:67.0648},
+  {name:"Civil Hospital Burn Unit", city:"Karachi", province:"Sindh", lat:24.8590, lng:67.0270},
+  {name:"Mayo Hospital Burn Unit", city:"Lahore", province:"Punjab", lat:31.5820, lng:74.3300},
+  {name:"Ghurki Trust Burn Unit", city:"Lahore", province:"Punjab", lat:31.4900, lng:74.3100},
+  {name:"Nishtar Hospital Burn Centre", city:"Multan", province:"Punjab", lat:30.1978, lng:71.4551},
+  {name:"Allied Hospital Burn Unit", city:"Faisalabad", province:"Punjab", lat:31.4180, lng:73.0790},
+  {name:"PIMS Burn Unit", city:"Islamabad", province:"Islamabad", lat:33.6989, lng:73.0480},
+  {name:"CMH Burn Unit", city:"Rawalpindi", province:"Punjab", lat:33.5960, lng:73.0480},
+  {name:"Lady Reading Hospital Burn Centre", city:"Peshawar", province:"Khyber Pakhtunkhwa", lat:34.0090, lng:71.5460},
+  {name:"Sandeman Hospital Burn Unit", city:"Quetta", province:"Balochistan", lat:30.1910, lng:66.9950},
+];
+
+const provinces = ["Punjab","Sindh","Khyber Pakhtunkhwa","Balochistan","Gilgit-Baltistan","Azad Kashmir","Islamabad"];
+const cities = [
+  {city:"Lahore",province:"Punjab",lat:31.5497,lng:74.3436},
+  {city:"Faisalabad",province:"Punjab",lat:31.4504,lng:73.1350},
+  {city:"Multan",province:"Punjab",lat:30.1575,lng:71.5249},
+  {city:"Rawalpindi",province:"Punjab",lat:33.5651,lng:73.0169},
+  {city:"Karachi",province:"Sindh",lat:24.8607,lng:67.0011},
+  {city:"Hyderabad",province:"Sindh",lat:25.3960,lng:68.3578},
+  {city:"Sukkur",province:"Sindh",lat:27.7052,lng:68.8574},
+  {city:"Peshawar",province:"Khyber Pakhtunkhwa",lat:34.0151,lng:71.5249},
+  {city:"Mardan",province:"Khyber Pakhtunkhwa",lat:34.1989,lng:72.0404},
+  {city:"Quetta",province:"Balochistan",lat:30.1798,lng:66.9750},
+  {city:"Gwadar",province:"Balochistan",lat:25.1264,lng:62.3225},
+  {city:"Gilgit",province:"Gilgit-Baltistan",lat:35.9208,lng:74.3144},
+  {city:"Muzaffarabad",province:"Azad Kashmir",lat:34.3700,lng:73.4711},
+  {city:"Islamabad",province:"Islamabad",lat:33.6844,lng:73.0479},
+];
+
+function haversine(lat1,lng1,lat2,lng2){
+  const R=6371, dLat=(lat2-lat1)*Math.PI/180, dLng=(lng2-lng1)*Math.PI/180;
+  const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+function destPoint(lat,lng,bearingDeg,distKm){
+  const R=6371, br=bearingDeg*Math.PI/180, lat1=lat*Math.PI/180, lng1=lng*Math.PI/180, d=distKm/R;
+  const lat2=Math.asin(Math.sin(lat1)*Math.cos(d)+Math.cos(lat1)*Math.sin(d)*Math.cos(br));
+  const lng2=lng1+Math.atan2(Math.sin(br)*Math.sin(d)*Math.cos(lat1),Math.cos(d)-Math.sin(lat1)*Math.sin(lat2));
+  return [lng2*180/Math.PI, lat2*180/Math.PI];
+}
+function circlePolygon(lat,lng,radiusKm,pts=64){
+  const ring=[];
+  for(let i=0;i<=pts;i++){ring.push(destPoint(lat,lng,(360/pts)*i,radiusKm));}
+  return {type:"Polygon",coordinates:[ring]};
+}
+
+// deterministic pseudo-random so the map looks the same each load
+let seed=42; function rnd(){seed=(seed*9301+49297)%233280; return seed/233280;}
+
+const causes=["scald","flame","electrical","chemical"];
+const severities=["minor","moderate","major","critical"];
+const incidents=[];
+let id=0;
+cities.forEach(c=>{
+  const n = 8 + Math.floor(rnd()*10);
+  for(let i=0;i<n;i++){
+    const lat = c.lat + (rnd()-0.5)*1.4;
+    const lng = c.lng + (rnd()-0.5)*1.4;
+    let nearest=Infinity;
+    hospitals.forEach(h=>{ const d=haversine(lat,lng,h.lat,h.lng); if(d<nearest) nearest=d; });
+    const access_cat = nearest<25?"n25": nearest<50?"n50": nearest<100?"n100":"n999";
+    incidents.push({
+      id:id++, lat, lng, city:c.city, province:c.province,
+      severity: severities[Math.floor(rnd()*severities.length)],
+      cause: causes[Math.floor(rnd()*causes.length)],
+      pediatric: rnd()<0.32,
+      gender: rnd()<0.46 ? "female":"male",
+      mortality: rnd()<0.09,
+      distance: Math.round(nearest*10)/10,
+      access_cat
+    });
+  }
+});
+
+/* ---------------- Map ---------------- */
+const severityColor = {minor:"#e0b400", moderate:"#c05a24", major:"#8c2a1c", critical:"#5a1610"};
+const accessColor = {n25:"#3f8f5f", n50:"#c9a227", n100:"#c05a24", n999:"#8c2a1c"};
+
+const RASTER_FALLBACK_STYLE = {
+  version:8,
+  sources:{ osm:{ type:'raster', tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize:256, attribution:'© OpenStreetMap contributors' } },
+  layers:[{id:'osm', type:'raster', source:'osm'}]
+};
+
+let map;
+let fallbackStage = 0; // 0 = trying vector style, 1 = trying raster fallback, 2 = gave up
+function initMap(styleParam){
+  map = new maplibregl.Map({
+    container:'map',
+    style:styleParam,
+    center:[69.5, 30.2],
+    zoom:4.6,
+    pitch:45,
+    bearing:-6,
+    antialias:true
+  });
+  map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
+  attachMapBehavior();
+}
+
+// If the map's base tiles can't be reached (network/firewall/ad-blocker
+// blocking the tile domain), MapLibre fires an 'error' event rather than
+// throwing — we listen for that and step down through fallbacks instead of
+// leaving a blank box.
+function handleMapError(e){
+  console.error('MapLibre error:', e && e.error);
+  if(fallbackStage===0){
+    fallbackStage=1;
+    document.getElementById('map-error').style.display='block';
+    document.getElementById('map-error').textContent =
+      "The primary map tiles didn't load — trying a backup tile source.";
+    map.setStyle(RASTER_FALLBACK_STYLE);
+  } else if(fallbackStage===1){
+    fallbackStage=2;
+    document.getElementById('map-error').textContent =
+      "Map tiles can't be reached from this browser/network (two different tile providers both failed). " +
+      "This usually means map-tile domains are blocked here — try a different network, disable an ad-blocker/VPN, or open the page in a normal browser tab instead of a preview. " +
+      "The incident data, layers, and analytics below still work without the base map.";
+  }
+}
+
+initMap('https://tiles.openfreemap.org/styles/liberty');
+
+let pickMode=false;
+let pickedLatLng=null;
+
+function attachMapBehavior(){
+map.getCanvas().style.cursor='grab';
+map.on('error', handleMapError);
+
+map.on('style.load', addDataLayers);
+
+function addDataLayers(){
+  if(map.getSource('incidents')) return; // already added for this style
+  map.addSource('incidents',{type:'geojson', data:{type:'FeatureCollection',features:
+    incidents.map(p=>({type:'Feature',geometry:{type:'Point',coordinates:[p.lng,p.lat]},
+      properties:{...p,
+        w_density:1,
+        w_pediatric:p.pediatric?1:0.05,
+        w_electrical:p.cause==='electrical'?1:0.05,
+        w_female:p.gender==='female'?1:0.05,
+        w_mortality:p.mortality?1:0.05,
+        w_access:{n25:0.1,n50:0.4,n100:0.75,n999:1}[p.access_cat]
+      }}))
+  }});
+
+  map.addLayer({id:'heat', type:'heatmap', source:'incidents',
+    layout:{visibility:'none'},
+    paint:{
+      'heatmap-weight':['get','w_density'],
+      'heatmap-intensity':1.1,
+      'heatmap-radius':28,
+      'heatmap-opacity':0.75,
+      'heatmap-color':['interpolate',['linear'],['heatmap-density'],
+        0,'rgba(250,246,238,0)', 0.2,'#e8b088', 0.45,'#c05a24', 0.7,'#8c2a1c', 1,'#5a1610']
+    }
+  });
+
+  map.addLayer({id:'incidents-pts', type:'circle', source:'incidents',
+    paint:{
+      'circle-radius':['interpolate',['linear'],['zoom'],4,3,8,7],
+      'circle-color':['case',
+        ['boolean', false],'#000',
+        ['match',['get','severity'],'minor',severityColor.minor,'moderate',severityColor.moderate,'major',severityColor.major,'critical',severityColor.critical,'#999']
+      ],
+      'circle-stroke-width':1,
+      'circle-stroke-color':'#fff',
+      'circle-opacity':0.9
+    }
+  });
+
+  map.addSource('hospitals',{type:'geojson', data:{type:'FeatureCollection',features:
+    hospitals.map(h=>({type:'Feature',geometry:{type:'Point',coordinates:[h.lng,h.lat]},properties:h}))
+  }});
+  map.addLayer({id:'hospitals-pts', type:'circle', source:'hospitals',
+    paint:{'circle-radius':7,'circle-color':'#74722f','circle-stroke-width':2,'circle-stroke-color':'#fff'}
+  });
+
+  // coverage radii: 3 concentric bands per hospital
+  const radiusFeatures=[];
+  hospitals.forEach(h=>{
+    [[100,'#f3d9c4'],[50,'#e8b088'],[25,'#c05a24']].forEach(([r,color])=>{
+      radiusFeatures.push({type:'Feature', geometry:circlePolygon(h.lat,h.lng,r), properties:{color}});
+    });
+  });
+  map.addSource('radii',{type:'geojson', data:{type:'FeatureCollection', features:radiusFeatures}});
+  map.addLayer({id:'radii-fill', type:'fill', source:'radii',
+    layout:{visibility:'visible'},
+    paint:{'fill-color':['get','color'], 'fill-opacity':0.25}}, 'incidents-pts');
+  map.addLayer({id:'radii-line', type:'line', source:'radii',
+    layout:{visibility:'visible'},
+    paint:{'line-color':['get','color'], 'line-width':1}}, 'incidents-pts');
+
+  // accessibility-zone coloring for incident points (toggle recolors by access category)
+  map.on('click','incidents-pts', e=>{
+    const p = e.features[0].properties;
+    new maplibregl.Popup({closeButton:true}).setLngLat(e.lngLat).setHTML(
+      `<div class="pop"><h4>${p.city}, ${p.province}</h4>
+        <p>Severity: ${p.severity} · Cause: ${p.cause}</p>
+        <p>${p.pediatric?'Pediatric':'Adult'} · ${p.gender}${p.mortality?' · high mortality risk':''}</p>
+        <p>${p.distance} km to nearest burn centre</p></div>`
+    ).addTo(map);
+  });
+  map.on('click','hospitals-pts', e=>{
+    const p = e.features[0].properties;
+    new maplibregl.Popup({closeButton:true}).setLngLat(e.lngLat).setHTML(
+      `<div class="pop"><h4>${p.name}</h4><p>${p.city}, ${p.province}</p></div>`
+    ).addTo(map);
+  });
+  ['incidents-pts','hospitals-pts'].forEach(l=>{
+    map.on('mouseenter',l,()=>{ if(!pickMode) map.getCanvas().style.cursor='pointer'; });
+    map.on('mouseleave',l,()=>{ if(!pickMode) map.getCanvas().style.cursor='grab'; });
+  });
+
+  // report-picking mode
+  map.on('click', e=>{
+    if(!pickMode) return;
+    pickedLatLng = e.lngLat;
+    document.getElementById('pick-status').textContent =
+      `Picked: ${e.lngLat.lat.toFixed(3)}, ${e.lngLat.lng.toFixed(3)}`;
+    map.easeTo({center:e.lngLat, zoom:Math.max(map.getZoom(),7), pitch:50, duration:900});
+  });
+
+  applyZoneStyle(true);
+  renderAnalytics();
+} // end addDataLayers
+} // end attachMapBehavior
+
+document.getElementById('ly-incidents').addEventListener('change', e=>{
+  map.setLayoutProperty('incidents-pts','visibility', e.target.checked?'visible':'none');
+});
+document.getElementById('ly-hospitals').addEventListener('change', e=>{
+  map.setLayoutProperty('hospitals-pts','visibility', e.target.checked?'visible':'none');
+});
+document.getElementById('ly-radii').addEventListener('change', e=>{
+  const v = e.target.checked?'visible':'none';
+  map.setLayoutProperty('radii-fill','visibility', v);
+  map.setLayoutProperty('radii-line','visibility', v);
+});
+document.getElementById('ly-zones').addEventListener('change', e=>{
+  applyZoneStyle(e.target.checked);
+});
+document.querySelectorAll('input[name=heat]').forEach(r=>{
+  r.addEventListener('change', ()=>{
+    const v = document.querySelector('input[name=heat]:checked').value;
+    if(v==='off'){ map.setLayoutProperty('heat','visibility','none'); return; }
+    map.setLayoutProperty('heat','visibility','visible');
+    const key = v==='access' ? 'w_access' : 'w_'+v;
+    map.setPaintProperty('heat','heatmap-weight',['get',key]);
+  });
+});
+document.querySelectorAll('input[name=zone]').forEach(r=>{
+  r.addEventListener('change', ()=>{
+    const v = document.querySelector('input[name=zone]:checked').value;
+    if(v==='all'){ map.setFilter('incidents-pts', null); }
+    else{ map.setFilter('incidents-pts', ['==',['get','access_cat'], v]); }
+  });
+});
+function applyZoneStyle(on){
+  if(on){
+    map.setPaintProperty('incidents-pts','circle-color', ['match',['get','access_cat'],
+      'n25',accessColor.n25,'n50',accessColor.n50,'n100',accessColor.n100,'n999',accessColor.n999,'#999']);
+  } else {
+    map.setPaintProperty('incidents-pts','circle-color', ['match',['get','severity'],
+      'minor',severityColor.minor,'moderate',severityColor.moderate,'major',severityColor.major,'critical',severityColor.critical,'#999']);
+  }
+}
+
+// smooth 3D toggle + reset, using easeTo for a gentle glide rather than a snap
+let is3d=true;
+document.getElementById('btn-3d').addEventListener('click', e=>{
+  is3d=!is3d;
+  e.target.classList.toggle('on', is3d);
+  map.easeTo({pitch:is3d?45:0, bearing:is3d?-6:0, duration:1200, easing:t=>t*(2-t)});
+});
+document.getElementById('btn-reset').addEventListener('click', ()=>{
+  map.flyTo({center:[69.5,30.2], zoom:4.6, pitch:is3d?45:0, bearing:is3d?-6:0, speed:0.7, curve:1.4, essential:true});
+});
+
+/* ---------------- Analytics ---------------- */
+function renderAnalytics(){
+  const total = incidents.length;
+  const pediatricPct = Math.round(100*incidents.filter(i=>i.pediatric).length/total);
+  const femalePct = Math.round(100*incidents.filter(i=>i.gender==='female').length/total);
+  const beyond50 = Math.round(100*incidents.filter(i=>i.access_cat==='n100'||i.access_cat==='n999').length/total);
+
+  document.getElementById('stat-grid').innerHTML = `
+    <div class="stat-card"><div class="num">${total}</div><div class="lbl">Sample incidents mapped</div></div>
+    <div class="stat-card"><div class="num">${hospitals.length}</div><div class="lbl">Burn centres mapped</div></div>
+    <div class="stat-card"><div class="num">${pediatricPct}%</div><div class="lbl">Pediatric cases</div></div>
+    <div class="stat-card"><div class="num">${beyond50}%</div><div class="lbl">Over 50 km from care</div></div>
+  `;
+
+  const byProvince={};
+  provinces.forEach(p=>byProvince[p]=0);
+  incidents.forEach(i=>byProvince[i.province]=(byProvince[i.province]||0)+1);
+  const max = Math.max(...Object.values(byProvince),1);
+  document.getElementById('bar-chart').innerHTML = Object.entries(byProvince).map(([p,c])=>`
+    <div class="bar-row"><span>${p}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(c/max*100).toFixed(0)}%"></div></div>
+      <span>${c}</span></div>`).join('');
+
+  const femaleN = incidents.filter(i=>i.gender==='female').length;
+  const maleN = total-femaleN;
+  const fp = Math.round(femaleN/total*100);
+  document.getElementById('donut').style.background =
+    `conic-gradient(#c05a24 0% ${fp}%, #74722f ${fp}% 100%)`;
+  document.getElementById('donut-key').innerHTML = `
+    <div><i style="background:#c05a24"></i>Female — ${femaleN} (${fp}%)</div>
+    <div><i style="background:#74722f"></i>Male — ${maleN} (${100-fp}%)</div>`;
+}
+
+/* ---------------- Report form ---------------- */
+const STORE_KEY='hbs_burn_reports';
+function loadReports(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'[]'); }catch(e){ return []; } }
+function saveReports(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function renderReports(){
+  const list = loadReports();
+  const body = document.getElementById('reports-body');
+  const table = document.getElementById('reports-table');
+  const empty = document.getElementById('reports-empty');
+  if(list.length===0){ table.style.display='none'; empty.style.display='block'; return; }
+  table.style.display='table'; empty.style.display='none';
+  body.innerHTML = list.slice().reverse().map(r=>`
+    <tr><td>${r.city}</td><td>${r.province}</td><td>${r.severity}</td><td>${r.cause}</td>
+    <td>${new Date(r.ts).toLocaleDateString()}</td></tr>`).join('');
+}
+renderReports();
+
+document.getElementById('btn-pick').addEventListener('click', ()=>{
+  pickMode = !pickMode;
+  document.getElementById('btn-pick').classList.toggle('on', pickMode);
+  document.getElementById('pick-status').textContent = pickMode
+    ? 'Pick mode on — switch to the Map tab and click a spot.'
+    : (pickedLatLng ? `Picked: ${pickedLatLng.lat.toFixed(3)}, ${pickedLatLng.lng.toFixed(3)}` : 'No location picked yet.');
+  map.getCanvas().style.cursor = pickMode ? 'crosshair' : 'grab';
+});
+
+document.getElementById('report-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  const report = {
+    city: document.getElementById('f-city').value.trim(),
+    province: document.getElementById('f-province').value,
+    age: document.getElementById('f-age').value,
+    gender: document.getElementById('f-gender').value,
+    cause: document.getElementById('f-cause').value,
+    severity: document.getElementById('f-severity').value,
+    notes: document.getElementById('f-notes').value.trim(),
+    lat: pickedLatLng ? pickedLatLng.lat : null,
+    lng: pickedLatLng ? pickedLatLng.lng : null,
+    ts: Date.now()
+  };
+  const list = loadReports(); list.push(report); saveReports(list);
+  renderReports();
+  e.target.reset();
+  pickedLatLng=null; pickMode=false;
+  document.getElementById('btn-pick').classList.remove('on');
+  document.getElementById('pick-status').textContent='No location picked yet.';
+});
+
+})();
+</script>
+</body>
+</html>
